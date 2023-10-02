@@ -1,0 +1,52 @@
+[package]
+name = "egui-plotter-3d"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+plotters = "0.3.5"
+egui = "0.23"
+eframe = "0.23"
+
+# Causes compile error below
+#egui-plotter = "0.3"
+# $ cargo build
+#     Blocking waiting for file lock on build directory
+#    Compiling emath v0.22.0
+#    Compiling ecolor v0.22.0
+#    Compiling epaint v0.22.0
+#    Compiling egui v0.22.0
+#    Compiling egui-plotter v0.3.0
+#    Compiling egui-plotter-3d v0.1.0 (/home/wink/prgs/rust/myrepos/egui-plotter-3d)
+# error[E0308]: mismatched types
+#    --> src/main.rs:79:41
+#     |
+# 79  |             let root = EguiBackend::new(ui).into_drawing_area();
+#     |                        ---------------- ^^ expected `&Ui`, found `&mut Ui`
+#     |                        |
+#     |                        arguments to this function are incorrect
+#     |
+#     = note: `Ui` and `egui::ui::Ui` have similar names, but are actually distinct types
+# note: `Ui` is defined in crate `egui`
+#    --> /home/wink/.cargo/registry/src/index.crates.io-6f17d22bba15001f/egui-0.23.0/src/ui.rs:31:1
+#     |
+# 31  | pub struct Ui {
+#     | ^^^^^^^^^^^^^
+# note: `egui::ui::Ui` is defined in crate `egui`
+#    --> /home/wink/.cargo/registry/src/index.crates.io-6f17d22bba15001f/egui-0.22.0/src/ui.rs:31:1
+#     |
+# 31  | pub struct Ui {
+#     | ^^^^^^^^^^^^^
+#     = note: perhaps two different versions of crate `egui` are being used?
+# note: associated function defined here
+#    --> /home/wink/.cargo/registry/src/index.crates.io-6f17d22bba15001f/egui-plotter-0.3.0/src/backend.rs:200:12
+#     |
+# 200 |     pub fn new(ui: &'a Ui) -> Self {
+#     |            ^^^
+# 
+# For more information about this error, try `rustc --explain E0308`.
+# error: could not compile `egui-plotter-3d` (bin "egui-plotter-3d") due to previous error
+
+egui-plotter = { git = "https://github.com/winksaville/egui-plotter.git", branch = "update-eframe-egui-to-0.23" }
